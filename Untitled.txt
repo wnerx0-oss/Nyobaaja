@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxProperty - Solusi Properti Terbaik</title>
+    <style>
+        /* Reset dan Variabel */
+        :root {
+            --primary: #1a365d;
+            --secondary: #e53e3e;
+            --accent: #2d3748;
+            --light: #f7fafc;
+            --dark: #2d3748;
+            --gray: #718096;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .cta-button {
+            background-color: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .cta-button:hover {
+            background-color: #c53030;
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 54, 93, 0.8), rgba(26, 54, 93, 0.8)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-box {
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .search-box input, .search-box select {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .search-button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-button:hover {
+            background-color: #c53030;
+        }
+        
+        /* Featured Properties */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .property-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .property-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .property-info {
+            padding: 20px;
+        }
+        
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .property-address {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .property-features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature span {
+            margin-left: 5px;
+            font-size: 0.9rem;
+        }
+        
+        /* Services */
+        .services {
+            background-color: var(--primary);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .service-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(rgba(26, 54, 93, 0.9), rgba(26, 54, 93, 0.9)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #cbd5e0;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0aec0;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin: 20px 0;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Lux<span>Property</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#">Beranda</a></li>
+                    <li><a href="#">Properti</a></li>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Layanan</a></li>
+                    <li><a href="#">Kontak</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="cta-button">List Properti Anda</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Temukan Properti Impian Anda</h1>
+            <p>Kami membantu Anda menemukan rumah, apartemen, atau properti komersial yang sesuai dengan kebutuhan dan anggaran Anda.</p>
+            <div class="search-box">
+                <input type="text" placeholder="Lokasi (contoh: Jakarta Selatan)">
+                <select>
+                    <option value="">Tipe Properti</option>
+                    <option value="rumah">Rumah</option>
+                    <option value="apartemen">Apartemen</option>
+                    <option value="kantor">Kantor</option>
+                    <option value="tanah">Tanah</option>
+                </select>
+                <select>
+                    <option value="">Harga Maksimal</option>
+                    <option value="500jt">Rp 500 Juta</option>
+                    <option value="1m">Rp 1 Miliar</option>
+                    <option value="2m">Rp 2 Miliar</option>
+                    <option value="5m">Rp 5 Miliar</option>
+                </select>
+                <button class="search-button">Cari Properti</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section class="container">
+        <div class="section-title">
+            <h2>Properti Unggulan</h2>
+            <p>Lihat pilihan properti terbaik kami yang telah dipilih dengan teliti untuk memenuhi kebutuhan Anda</p>
+        </div>
+        <div class="properties-grid">
+            <!-- Property 1 -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Modern House" class="property-img">
+                <div class="property-info">
+                    <div class="property-price">Rp 2,5 Miliar</div>
+                    <h3>Rumah Modern di Pondok Indah</h3>
+                    <p class="property-address">Jl. Metro Pondok Indah, Jakarta Selatan</p>
+                    <div class="property-features">
+                        <div class="feature">
+                            <span>🛏️ 4</span>
+                        </div>
+                        <div class="feature">
+                            <span>🚿 3</span>
+                        </div>
+                        <div class="feature">
+                            <span>📏 350 m²</span>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-button" style="display: block; text-align: center;">Lihat Detail</a>
+                </div>
+            </div>
+            
+            <!-- Property 2 -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Luxury Apartment" class="property-img">
+                <div class="property-info">
+                    <div class="property-price">Rp 1,8 Miliar</div>
+                    <h3>Apartemen Mewah di SCBD</h3>
+                    <p class="property-address">Jl. Jenderal Sudirman, Jakarta Pusat</p>
+                    <div class="property-features">
+                        <div class="feature">
+                            <span>🛏️ 3</span>
+                        </div>
+                        <div class="feature">
+                            <span>🚿 2</span>
+                        </div>
+                        <div class="feature">
+                            <span>📏 120 m²</span>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-button" style="display: block; text-align: center;">Lihat Detail</a>
+                </div>
+            </div>
+            
+            <!-- Property 3 -->
+            <div class="property-card">
+                <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Minimalist House" class="property-img">
+                <div class="property-info">
+                    <div class="property-price">Rp 3,2 Miliar</div>
+                    <h3>Rumah Minimalis di BSD City</h3>
+                    <p class="property-address">BSD City, Tangerang Selatan</p>
+                    <div class="property-features">
+                        <div class="feature">
+                            <span>🛏️ 5</span>
+                        </div>
+                        <div class="feature">
+                            <span>🚿 4</span>
+                        </div>
+                        <div class="feature">
+                            <span>📏 450 m²</span>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-button" style="display: block; text-align: center;">Lihat Detail</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services">
+        <div class="container">
+            <div class="section-title" style="color: white;">
+                <h2>Layanan Kami</h2>
+                <p>Kami menyediakan berbagai layanan properti untuk memenuhi semua kebutuhan Anda</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3>Jual Properti</h3>
+                    <p>Kami membantu Anda menjual properti dengan harga terbaik dan proses yang mudah</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔑</div>
+                    <h3>Sewa Properti</h3>
+                    <p>Temukan properti sewa yang sesuai dengan kebutuhan dan budget Anda</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💰</div>
+                    <h3>Konsultasi Investasi</h3>
+                    <p>Dapatkan saran ahli untuk investasi properti yang menguntungkan</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚖️</div>
+                    <h3>Legalitas</h3>
+                    <p>Kami bantu proses legalitas properti dengan cepat dan aman</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Apa Kata Klien Kami</h2>
+                <p>Lihat pengalaman nyata dari klien yang telah menggunakan layanan kami</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Sangat puas dengan pelayanan LuxProperty. Mereka membantu saya menemukan rumah impian dengan proses yang mudah dan transparan."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Wijaya" class="author-img">
+                        <div class="author-info">
+                            <h4>Sarah Wijaya</h4>
+                            <p>Pembeli Rumah di BSD</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Proses jual rumah saya berjalan lancar berkat bantuan tim LuxProperty. Harga yang didapat sesuai harapan dan proses cepat."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Budi Santoso" class="author-img">
+                        <div class="author-info">
+                            <h4>Budi Santoso</h4>
+                            <p>Penjual Properti</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Sebagai investor properti, saya sangat mengandalkan konsultasi dari LuxProperty. Rekomendasi mereka selalu tepat dan menguntungkan."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dewi Lestari" class="author-img">
+                        <div class="author-info">
+                            <h4>Dewi Lestari</h4>
+                            <p>Investor Properti</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Siap Menemukan Properti Impian Anda?</h2>
+            <p>Hubungi kami sekarang dan dapatkan konsultasi gratis dengan ahli properti kami</p>
+            <a href="#" class="cta-button">Konsultasi Gratis</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>LuxProperty</h3>
+                    <p>Solusi terbaik untuk semua kebutuhan properti Anda. Dengan pengalaman lebih dari 10 tahun di industri properti.</p>
+                    <div class="social-links">
+                        <a href="#"><span>fb</span></a>
+                        <a href="#"><span>ig</span></a>
+                        <a href="#"><span>tw</span></a>
+                        <a href="#"><span>in</span></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Tautan Cepat</h3>
+                    <ul>
+                        <li><a href="#">Beranda</a></li>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Properti</a></li>
+                        <li><a href="#">Layanan</a></li>
+                        <li><a href="#">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kategori Properti</h3>
+                    <ul>
+                        <li><a href="#">Rumah</a></li>
+                        <li><a href="#">Apartemen</a></li>
+                        <li><a href="#">Tanah</a></li>
+                        <li><a href="#">Komersial</a></li>
+                        <li><a href="#">Sewa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontak Kami</h3>
+                    <ul>
+                        <li>📞 (021) 1234-5678</li>
+                        <li>✉️ info@luxproperty.com</li>
+                        <li>📍 Jl. Sudirman No. 123, Jakarta Pusat</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 LuxProperty. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
